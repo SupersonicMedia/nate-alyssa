@@ -40,6 +40,8 @@ const rsvpFormUrl =
       <span>Huntingdon, PA</span>
     </div>
 
+    <p class="hero__rsvp-by">Kindly respond by July 4, 2026</p>
+
     <ul class="hero__countdown" data-countdown data-target={weddingISO} aria-label="Countdown to the wedding">
       <li><span data-cd-days>—</span><em>Days</em></li>
       <li><span data-cd-hours>—</span><em>Hours</em></li>
@@ -148,6 +150,14 @@ const rsvpFormUrl =
   }
   .hero__dot {
     opacity: 0.6;
+  }
+
+  .hero__rsvp-by {
+    margin: 0.85rem 0 0;
+    font-style: italic;
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    opacity: 0.85;
   }
 
   .hero__countdown {
