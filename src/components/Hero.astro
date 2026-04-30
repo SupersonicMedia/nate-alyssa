@@ -1,0 +1,286 @@
+---
+import { Image } from "astro:assets";
+import hero from "../assets/hero.jpg";
+
+// Wedding date — used for both display and the live countdown.
+const weddingISO = "2026-08-08T16:00:00-04:00";
+---
+
+<section class="hero" id="top" aria-label="Welcome">
+  <div class="hero__media" aria-hidden="true">
+    <Image
+      src={hero}
+      alt=""
+      widths={[640, 960, 1280, 1600, 2000]}
+      sizes="100vw"
+      loading="eager"
+      fetchpriority="high"
+      class="hero__bg"
+    />
+    <div class="hero__overlay"></div>
+  </div>
+
+  <div class="hero__content">
+    <p class="hero__eyebrow">We're getting married</p>
+
+    <h1 class="hero__title">
+      <span class="hero__name">Alyssa</span>
+      <span class="hero__amp script" aria-hidden="true">&amp;</span>
+      <span class="sr-only">and</span>
+      <span class="hero__name">Nathan</span>
+    </h1>
+
+    <div class="hero__meta">
+      <span>08 . 08 . 26</span>
+      <span class="hero__dot" aria-hidden="true">•</span>
+      <span>Stone Valley Estates</span>
+      <span class="hero__dot" aria-hidden="true">•</span>
+      <span>Huntingdon, PA</span>
+    </div>
+
+    <ul class="hero__countdown" data-countdown data-target={weddingISO} aria-label="Countdown to the wedding">
+      <li><span data-cd-days>—</span><em>Days</em></li>
+      <li><span data-cd-hours>—</span><em>Hours</em></li>
+      <li><span data-cd-mins>—</span><em>Minutes</em></li>
+      <li><span data-cd-secs>—</span><em>Seconds</em></li>
+    </ul>
+
+    <div class="hero__cta">
+      <a class="btn btn--solid" href="#story">Our Story</a>
+      <a class="btn" href="#rsvp">RSVP</a>
+    </div>
+  </div>
+
+  <a class="hero__scroll" href="#story" aria-label="Scroll to our story">
+    <span></span>
+  </a>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    isolation: isolate;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    color: var(--color-cream);
+    overflow: hidden;
+  }
+
+  .hero__media {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+  .hero__bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 35%;
+  }
+  .hero__overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(
+        180deg,
+        rgba(20, 16, 14, 0.45) 0%,
+        rgba(20, 16, 14, 0.25) 35%,
+        rgba(20, 16, 14, 0.55) 100%
+      );
+  }
+
+  .hero__content {
+    padding: clamp(5rem, 10vw, 8rem) clamp(1.25rem, 5vw, 2rem) clamp(4rem, 9vw, 7rem);
+    max-width: 60rem;
+  }
+
+  .hero__eyebrow {
+    font-family: var(--font-serif);
+    font-style: italic;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    margin: 0 0 1.25rem;
+    opacity: 0.92;
+  }
+
+  .hero__title {
+    margin: 0;
+    line-height: 0.95;
+    font-weight: 400;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.1em;
+  }
+  .hero__name {
+    font-family: var(--font-serif);
+    font-size: clamp(3rem, 11vw, 7.5rem);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .hero__amp {
+    font-size: clamp(3.75rem, 13vw, 9rem);
+    color: var(--color-cream);
+    margin-block: -0.15em;
+    line-height: 1;
+    font-style: italic;
+  }
+
+  .hero__meta {
+    margin-top: 1.5rem;
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem 0.85rem;
+    font-family: var(--font-serif);
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    font-size: clamp(0.72rem, 1.6vw, 0.85rem);
+  }
+  .hero__dot {
+    opacity: 0.6;
+  }
+
+  .hero__countdown {
+    margin: 2rem 0 2.25rem;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.5rem;
+    max-width: 30rem;
+    margin-inline: auto;
+  }
+  .hero__countdown li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.85rem 0.4rem;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+  }
+  .hero__countdown span {
+    font-family: var(--font-serif);
+    font-size: clamp(1.5rem, 5vw, 2.25rem);
+    font-weight: 500;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .hero__countdown em {
+    font-style: normal;
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    margin-top: 0.45rem;
+    opacity: 0.85;
+  }
+
+  .hero__cta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+  .hero__cta .btn {
+    border-color: rgba(255, 255, 255, 0.85);
+    color: var(--color-cream);
+  }
+  .hero__cta .btn:hover {
+    background: var(--color-cream);
+    color: var(--color-ink);
+  }
+  .hero__cta .btn--solid {
+    background: var(--color-cream);
+    color: var(--color-ink);
+  }
+  .hero__cta .btn--solid:hover {
+    background: var(--color-rose-deep);
+    color: var(--color-cream);
+    border-color: var(--color-rose-deep);
+  }
+
+  .hero__scroll {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 28px;
+    height: 46px;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 99px;
+    display: grid;
+    place-items: center;
+  }
+  .hero__scroll span {
+    width: 2px;
+    height: 8px;
+    background: var(--color-cream);
+    border-radius: 2px;
+    animation: scrollDot 1.6s ease-in-out infinite;
+  }
+  @keyframes scrollDot {
+    0%, 100% { transform: translateY(-6px); opacity: 0; }
+    35%, 65% { opacity: 1; }
+    100% { transform: translateY(8px); }
+  }
+
+  @media (max-width: 720px) {
+    .hero__content {
+      padding-block: clamp(3.5rem, 14vw, 5rem) clamp(3rem, 10vw, 4.5rem);
+    }
+    .hero__name { font-size: clamp(2.5rem, 12vw, 4.5rem); }
+    .hero__amp { font-size: clamp(3rem, 14vw, 5.5rem); }
+    .hero__meta {
+      letter-spacing: 0.16em;
+      gap: 0.35rem 0.6rem;
+    }
+    .hero__countdown {
+      gap: 0.4rem;
+      margin: 1.5rem 0 1.75rem;
+      max-width: 24rem;
+    }
+    .hero__countdown li { padding: 0.65rem 0.2rem; }
+    .hero__countdown em { letter-spacing: 0.14em; font-size: 0.58rem; }
+    .hero__cta { width: 100%; }
+    .hero__cta .btn { flex: 1 1 0; min-width: 0; }
+  }
+  @media (max-width: 380px) {
+    .hero__meta .hero__dot { display: none; }
+    .hero__meta {
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+  }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>("[data-countdown]");
+  if (root) {
+    const target = new Date(root.dataset.target!).getTime();
+    const dEl = root.querySelector<HTMLElement>("[data-cd-days]");
+    const hEl = root.querySelector<HTMLElement>("[data-cd-hours]");
+    const mEl = root.querySelector<HTMLElement>("[data-cd-mins]");
+    const sEl = root.querySelector<HTMLElement>("[data-cd-secs]");
+
+    const tick = () => {
+      const diff = Math.max(0, target - Date.now());
+      const d = Math.floor(diff / 86_400_000);
+      const h = Math.floor((diff / 3_600_000) % 24);
+      const m = Math.floor((diff / 60_000) % 60);
+      const s = Math.floor((diff / 1000) % 60);
+      if (dEl) dEl.textContent = String(d);
+      if (hEl) hEl.textContent = String(h).padStart(2, "0");
+      if (mEl) mEl.textContent = String(m).padStart(2, "0");
+      if (sEl) sEl.textContent = String(s).padStart(2, "0");
+    };
+    tick();
+    setInterval(tick, 1000);
+  }
+</script>

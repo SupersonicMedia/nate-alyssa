@@ -1,0 +1,184 @@
+@import "tailwindcss";
+
+@theme {
+  /* Soft warm palette inspired by the source site, refined for elegance */
+  --color-cream: #faf6f0;
+  --color-cream-50: #fdfbf7;
+  --color-sand: #efe7da;
+  --color-stone: #d8cdb9;
+  --color-ink: #2a2622;
+  --color-ink-soft: #4b443c;
+  --color-muted: #7a6f63;
+  --color-rose: #b08574;
+  --color-rose-deep: #8d6358;
+  --color-gold: #c4a674;
+
+  /* Citadel Script is a paid font; Pinyon Script is the closest free analog. */
+  --font-script: "Citadel Script", "Pinyon Script", "Allura", cursive;
+  --font-serif: "EB Garamond", "Cormorant Garamond", "Garamond", serif;
+  --font-display: "EB Garamond", serif;
+
+  --tracking-wider: 0.18em;
+  --tracking-widest: 0.32em;
+}
+
+/* Local @font-face shim for Citadel Script — drop a Citadel-Script.woff2
+   into /public/fonts/ to activate it; Pinyon Script otherwise renders. */
+@font-face {
+  font-family: "Citadel Script";
+  src: url("/fonts/Citadel-Script.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* Offset for sticky header on anchor jumps */
+    scroll-padding-top: 90px;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  @media (max-width: 720px) {
+    html { scroll-padding-top: 72px; }
+  }
+
+  body {
+    background: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-serif);
+    font-feature-settings: "liga" 1, "calt" 1, "onum" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  img, svg, video {
+    max-width: 100%;
+    height: auto;
+  }
+
+  ::selection {
+    background: var(--color-rose);
+    color: white;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+  }
+}
+
+@layer components {
+  .script {
+    font-family: var(--font-script);
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  .eyebrow {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-widest);
+    font-size: 0.75rem;
+    color: var(--color-rose-deep);
+  }
+
+  .display {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    letter-spacing: var(--tracking-wider);
+    text-transform: uppercase;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem 2rem;
+    border: 1px solid var(--color-ink);
+    background: transparent;
+    color: var(--color-ink);
+    font-family: var(--font-serif);
+    font-size: 0.78rem;
+    letter-spacing: var(--tracking-widest);
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background-color 220ms ease, color 220ms ease, transform 220ms ease;
+    cursor: pointer;
+  }
+  .btn:hover {
+    background: var(--color-ink);
+    color: var(--color-cream);
+  }
+  .btn:active {
+    transform: translateY(1px);
+  }
+  .btn--solid {
+    background: var(--color-ink);
+    color: var(--color-cream);
+  }
+  .btn--solid:hover {
+    background: var(--color-rose-deep);
+    border-color: var(--color-rose-deep);
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    color: var(--color-rose);
+  }
+  .divider::before,
+  .divider::after {
+    content: "";
+    height: 1px;
+    flex: 1;
+    max-width: 4rem;
+    background: currentColor;
+    opacity: 0.5;
+  }
+
+  .section {
+    padding-block: clamp(3.5rem, 9vw, 7rem);
+    padding-inline: max(env(safe-area-inset-left), clamp(1.1rem, 4vw, 2.5rem))
+      max(env(safe-area-inset-right), clamp(1.1rem, 4vw, 2.5rem));
+  }
+  @media (max-width: 480px) {
+    .section { padding-block: 3rem; }
+  }
+
+  .container-narrow {
+    max-width: 64rem;
+    margin-inline: auto;
+  }
+  .container-wide {
+    max-width: 88rem;
+    margin-inline: auto;
+  }
+
+  /* Subtle reveal-on-scroll */
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 700ms ease, transform 700ms ease;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    html { scroll-behavior: auto; }
+  }
+}

@@ -1,0 +1,63 @@
+---
+---
+
+<section id="registry" class="section registry">
+  <div class="container-narrow registry__inner reveal">
+    <p class="eyebrow">Registry</p>
+    <h2 class="registry__title script">A note of thanks</h2>
+
+    <p class="registry__body">
+      Your presence at our wedding is the greatest gift of all. But if you'd like to help us
+      celebrate in another way, we are accepting contributions to our honeymoon fund as we
+      plan an unforgettable trip together!
+    </p>
+
+    <div class="registry__cta">
+      <span class="btn btn--ghost" aria-disabled="true">Coming Soon</span>
+    </div>
+
+    <p class="registry__sign script" aria-hidden="true">— with love</p>
+  </div>
+</section>
+
+<style>
+  .registry {
+    background: var(--color-cream);
+    text-align: center;
+  }
+  .registry__inner {
+    background: white;
+    border: 1px solid var(--color-stone);
+    padding: clamp(2.5rem, 7vw, 4.5rem) clamp(1.5rem, 5vw, 3rem);
+    border-radius: 2px;
+    box-shadow: 0 30px 60px -40px rgba(40, 30, 25, 0.4);
+  }
+  .registry__title {
+    font-size: clamp(3rem, 7vw, 4.5rem);
+    color: var(--color-rose-deep);
+    margin: 0.5rem 0 1.5rem;
+    line-height: 1;
+  }
+  .registry__body {
+    max-width: 38rem;
+    margin: 0 auto 2rem;
+    line-height: 1.8;
+    font-size: clamp(1rem, 1.4vw, 1.125rem);
+    color: var(--color-ink-soft);
+  }
+  .registry__cta {
+    display: flex;
+    justify-content: center;
+  }
+  .btn--ghost {
+    color: var(--color-muted);
+    border-color: var(--color-stone);
+    cursor: default;
+    pointer-events: none;
+  }
+  .registry__sign {
+    margin-top: 2rem;
+    font-size: 1.75rem;
+    color: var(--color-rose);
+  }
+</style>

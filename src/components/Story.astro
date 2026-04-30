@@ -1,0 +1,147 @@
+---
+import { Image } from "astro:assets";
+import storyImg from "../assets/gallery/524639802_4104232946512149_2651185876716431935_n-682x1024.jpg";
+---
+
+<section id="story" class="section story">
+  <div class="container-wide story__grid">
+    <div class="story__copy reveal">
+      <p class="eyebrow">Our Story</p>
+      <h2 class="story__title script">Alyssa &amp; Nathan</h2>
+      <p class="story__subtitle">~ Alyssa's POV ~</p>
+
+      <h3 class="story__lede">It all started with pizza.</h3>
+
+      <p>Well… sort of.</p>
+
+      <p>
+        In 2021, my mom worked at a local pizza shop and kept talking about this guy named
+        Nathan — how smart, kind, and down-to-earth he was. She was convinced we'd hit it off
+        and, naturally, I was skeptical.
+      </p>
+
+      <p>When I asked what he liked to do for fun, she said, "He plays video games."</p>
+
+      <p>That was an instant nope from me.</p>
+
+      <p>
+        Fast forward a few weeks, and I started noticing him working the front desk at the gym
+        I had just started going to. Eventually, I caved and asked him to make me a workout
+        plan — even though I was a tri-sport athlete in high school, I had to act like I had
+        no idea what I was doing just so he'd help me.
+      </p>
+
+      <p>
+        But somehow, I stopped focusing on the workouts… and started focusing on how Nathan
+        strutted around the gym like he owned the place (and looked dang good doing it).
+      </p>
+
+      <p>
+        We eventually started hanging out. Then dating (after he asked me out while we were
+        sitting on my brother's living room couch). And even though I was determined not to
+        say it first, I ended up being the one to say "I love you" first.
+      </p>
+
+      <p>
+        So, from pizza shop matchmaking to gym crushes and late nights binge-watching our
+        favorite Netflix series (the "I love you" happened halfway through season two of
+        <em>Breaking Bad</em>, by the way), we've built something real, steady, and full of
+        love.
+      </p>
+
+      <p>
+        Now, we can't wait to spend forever together — starting with a party surrounded by the
+        people we love most.
+      </p>
+
+      <p class="story__sign script" aria-hidden="true">Alyssa &amp; Nathan</p>
+    </div>
+
+    <figure class="story__figure reveal">
+      <Image
+        src={storyImg}
+        alt="Alyssa and Nathan"
+        widths={[400, 600, 800, 1000]}
+        sizes="(max-width: 900px) 90vw, 480px"
+        loading="lazy"
+      />
+    </figure>
+  </div>
+</section>
+
+<style>
+  .story {
+    background: var(--color-cream);
+  }
+
+  .story__grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: clamp(2rem, 6vw, 5rem);
+    align-items: start;
+  }
+  @media (max-width: 900px) {
+    .story__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .story__copy { order: 1; }
+  .story__figure { order: 2; }
+  @media (max-width: 900px) {
+    .story__figure { order: 1; }
+    .story__copy { order: 2; }
+  }
+
+  .story__title {
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    margin: 0.4rem 0 0.25rem;
+    color: var(--color-rose-deep);
+  }
+  .story__subtitle {
+    font-style: italic;
+    color: var(--color-muted);
+    letter-spacing: 0.08em;
+    margin: 0 0 2rem;
+  }
+  .story__lede {
+    font-family: var(--font-serif);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    margin: 0 0 1rem;
+    font-style: italic;
+    color: var(--color-ink);
+  }
+  .story__copy p {
+    font-size: clamp(1rem, 1.4vw, 1.125rem);
+    line-height: 1.75;
+    margin: 0 0 1rem;
+    color: var(--color-ink-soft);
+  }
+  .story__sign {
+    font-size: clamp(2.25rem, 5vw, 3rem);
+    color: var(--color-rose-deep);
+    margin-top: 1.5rem;
+  }
+
+  .story__figure {
+    margin: 0;
+    position: sticky;
+    top: 100px;
+  }
+  @media (max-width: 900px) {
+    .story__figure {
+      position: static;
+      max-width: 26rem;
+      margin-inline: auto;
+    }
+  }
+  .story__figure :global(img) {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 2px;
+    box-shadow:
+      0 1px 0 var(--color-stone),
+      0 30px 60px -30px rgba(40, 30, 25, 0.35);
+  }
+</style>

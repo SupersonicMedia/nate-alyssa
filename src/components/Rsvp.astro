@@ -1,0 +1,175 @@
+---
+const formEmbedUrl =
+  "https://docs.google.com/forms/d/e/1FAIpQLSffKVCdmfpS5GfKhtxUAK33QIBAZJcvx6esscZIML4HXfxavA/viewform?embedded=true";
+const formOpenUrl =
+  "https://docs.google.com/forms/d/e/1FAIpQLSffKVCdmfpS5GfKhtxUAK33QIBAZJcvx6esscZIML4HXfxavA/viewform";
+---
+
+<section id="rsvp" class="section rsvp">
+  <div class="container-narrow rsvp__inner reveal">
+    <p class="eyebrow">RSVP</p>
+    <h2 class="rsvp__title script">Will you join us?</h2>
+
+    <p class="rsvp__lede">
+      We can't wait to celebrate with you on <strong>August 8, 2026</strong>. Please complete
+      the form below to let us know if you'll be joining us.
+    </p>
+
+    <div class="rsvp__details" aria-label="Wedding details">
+      <div class="rsvp__detail">
+        <span class="rsvp__label">Date</span>
+        <span class="rsvp__value">Saturday, August 8, 2026</span>
+      </div>
+      <div class="rsvp__detail">
+        <span class="rsvp__label">Time</span>
+        <span class="rsvp__value">4:00 PM</span>
+      </div>
+      <div class="rsvp__detail">
+        <span class="rsvp__label">Venue</span>
+        <span class="rsvp__value">Stone Valley Estates</span>
+      </div>
+      <div class="rsvp__detail">
+        <span class="rsvp__label">Location</span>
+        <span class="rsvp__value">Huntingdon, PA</span>
+      </div>
+      <div class="rsvp__detail">
+        <span class="rsvp__label">Attire</span>
+        <span class="rsvp__value">Formal &amp; Black Tie Optional</span>
+      </div>
+    </div>
+
+    <div class="rsvp__cta">
+      <a class="btn" href={formOpenUrl} target="_blank" rel="noopener noreferrer">
+        Open form in new tab
+        <span aria-hidden="true">↗</span>
+      </a>
+      <a class="btn btn--solid" href="/wedding-alyssa-nathan.ics" download>
+        Add to Calendar
+        <span aria-hidden="true">↓</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="container-narrow rsvp__form reveal" aria-label="RSVP form">
+    <iframe
+      src={formEmbedUrl}
+      title="RSVP Form for Alyssa & Nathan's Wedding"
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      scrolling="no"
+    >
+      Loading form…
+    </iframe>
+  </div>
+</section>
+
+<style>
+  .rsvp {
+    background: var(--color-cream-50);
+    border-block: 1px solid color-mix(in oklab, var(--color-stone) 60%, transparent);
+    text-align: center;
+  }
+
+  .rsvp__inner {
+    background: white;
+    border: 1px solid var(--color-stone);
+    padding: clamp(2.5rem, 7vw, 4.5rem) clamp(1.5rem, 5vw, 3rem);
+    border-radius: 2px;
+    box-shadow: 0 30px 60px -40px rgba(40, 30, 25, 0.4);
+  }
+
+  .rsvp__title {
+    font-size: clamp(3rem, 7vw, 4.5rem);
+    color: var(--color-rose-deep);
+    margin: 0.5rem 0 1.5rem;
+    line-height: 1;
+  }
+  .rsvp__lede {
+    max-width: 36rem;
+    margin: 0 auto 2rem;
+    line-height: 1.8;
+    font-size: clamp(1rem, 1.4vw, 1.125rem);
+    color: var(--color-ink-soft);
+  }
+
+  .rsvp__details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+    gap: 1.25rem;
+    margin: 0 0 2rem;
+    padding: 1.5rem;
+    border: 1px solid var(--color-stone);
+    border-radius: 2px;
+    background: var(--color-cream-50);
+  }
+  .rsvp__detail {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .rsvp__label {
+    font-family: var(--font-serif);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--color-rose-deep);
+  }
+  .rsvp__value {
+    font-family: var(--font-serif);
+    font-size: clamp(0.95rem, 1.4vw, 1.05rem);
+    color: var(--color-ink);
+  }
+
+  .rsvp__cta {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  @media (max-width: 480px) {
+    .rsvp__cta { width: 100%; }
+    .rsvp__cta .btn { flex: 1 1 0; min-width: 0; }
+  }
+
+  /* The embedded Google Form, full-height, no inner scroll.
+     Google Forms iframes don't post their height to the parent, so we use a
+     generous fixed value and rely on `scrolling="no"`. The script below grows
+     the iframe to whatever it actually needs whenever it can be measured. */
+  .rsvp__form {
+    margin-top: clamp(2rem, 5vw, 3.5rem);
+  }
+  .rsvp__form iframe {
+    display: block;
+    width: 100%;
+    border: 0;
+    /* Initial height covers a typical RSVP form; the JS below adjusts as needed. */
+    height: 2400px;
+    background: white;
+  }
+</style>
+
+<script>
+  // Try to fit the Google Form iframe to its actual content. Cross-origin
+  // forms block contentDocument access, so this is best-effort: it works on
+  // engines that allow same-origin reads (rare for Google) and otherwise the
+  // generous CSS height keeps everything visible without an inner scrollbar.
+  const iframe = document.querySelector<HTMLIFrameElement>(".rsvp__form iframe");
+  if (iframe) {
+    const fit = () => {
+      try {
+        const doc = iframe.contentDocument;
+        if (doc?.body) {
+          const h = Math.max(
+            doc.body.scrollHeight,
+            doc.documentElement.scrollHeight,
+          );
+          if (h > 100) iframe.style.height = `${h + 32}px`;
+        }
+      } catch {
+        /* cross-origin — ignore */
+      }
+    };
+    iframe.addEventListener("load", fit);
+    setTimeout(fit, 1500);
+  }
+</script>

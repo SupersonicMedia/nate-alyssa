@@ -1,0 +1,164 @@
+---
+const cards = [
+  {
+    eyebrow: "Hotel Block",
+    title: "Guest Hotels",
+    body: "Hotel block details are still being finalized. Check back soon for the full list of recommended stays near Stone Valley Estates.",
+    cta: { label: "Coming Soon", href: "#travel", disabled: true },
+  },
+  {
+    eyebrow: "Stay Local",
+    title: "Prefer an AirBnB?",
+    body: "Huntingdon and Raystown Lake have wonderful local listings — many are perfect for groups traveling together for the weekend.",
+    cta: {
+      label: "Browse AirBnBs",
+      href: "https://www.airbnb.com/s/Huntingdon--PA/homes?refinement_paths%5B%5D=%2Fhomes&date_picker_type=calendar&checkin=2026-08-07&checkout=2026-08-09",
+      disabled: false,
+    },
+  },
+  {
+    eyebrow: "Make a Weekend",
+    title: "Raystown Lake",
+    body: "Staying through the weekend? Stop by Raystown Lake for hiking, paddling, scenic drives, and plenty more outdoor adventures.",
+    cta: {
+      label: "Things to Do",
+      href: "https://raystown.org/things-to-do/",
+      disabled: false,
+    },
+  },
+];
+---
+
+<section id="travel" class="section travel">
+  <div class="container-wide">
+    <header class="travel__header reveal">
+      <p class="eyebrow">Travel &amp; Stay</p>
+      <h2 class="travel__title">Plan your visit</h2>
+      <p class="travel__lede">
+        Huntingdon, Pennsylvania is nestled in the rolling hills of Central PA, just a few
+        hours from most major cities. Here's everything you need to settle in.
+      </p>
+    </header>
+
+    <div class="travel__grid">
+      {cards.map((c) => (
+        <article class="travel__card reveal">
+          <p class="travel__card-eyebrow">{c.eyebrow}</p>
+          <h3 class="travel__card-title">{c.title}</h3>
+          <p class="travel__card-body">{c.body}</p>
+          {c.cta.disabled ? (
+            <span class="btn btn--ghost" aria-disabled="true">{c.cta.label}</span>
+          ) : (
+            <a class="btn" href={c.cta.href} target="_blank" rel="noopener noreferrer">
+              {c.cta.label}
+              <span aria-hidden="true">→</span>
+            </a>
+          )}
+        </article>
+      ))}
+    </div>
+
+    <div class="travel__map reveal">
+      <iframe
+        title="Map of Stone Valley Estates, Huntingdon, PA"
+        src="https://www.google.com/maps?q=Stone+Valley+Estates+Huntingdon+PA&output=embed"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+    </div>
+  </div>
+</section>
+
+<style>
+  .travel {
+    background: var(--color-cream);
+  }
+
+  .travel__header {
+    text-align: center;
+    max-width: 38rem;
+    margin: 0 auto clamp(2rem, 6vw, 3.5rem);
+  }
+  .travel__title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin: 0.4rem 0 0.85rem;
+  }
+  .travel__lede {
+    color: var(--color-muted);
+    line-height: 1.7;
+  }
+
+  .travel__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+    gap: clamp(1rem, 2.5vw, 1.5rem);
+  }
+
+  .travel__card {
+    background: white;
+    border: 1px solid var(--color-stone);
+    padding: clamp(1.5rem, 3.5vw, 2rem);
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    border-radius: 2px;
+    transition: transform 320ms ease, box-shadow 320ms ease;
+  }
+  .travel__card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 48px -28px rgba(40, 30, 25, 0.3);
+  }
+  .travel__card-eyebrow {
+    font-family: var(--font-serif);
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    font-size: 0.7rem;
+    color: var(--color-rose-deep);
+    margin: 0 0 0.5rem;
+  }
+  .travel__card-title {
+    font-size: clamp(1.35rem, 2.4vw, 1.75rem);
+    margin: 0 0 0.85rem;
+    color: var(--color-ink);
+  }
+  .travel__card-body {
+    color: var(--color-ink-soft);
+    line-height: 1.7;
+    margin: 0 0 1.5rem;
+    flex: 1;
+  }
+
+  .btn--ghost {
+    color: var(--color-muted);
+    border-color: var(--color-stone);
+    cursor: default;
+    pointer-events: none;
+  }
+
+  .travel__map {
+    margin-top: clamp(2rem, 5vw, 3.5rem);
+    border: 1px solid var(--color-stone);
+    background: white;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 2px;
+  }
+  @media (max-width: 640px) {
+    .travel__map { aspect-ratio: 4 / 5; }
+  }
+  .travel__map iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+    filter: saturate(0.9) contrast(0.96);
+  }
+
+  @media (hover: none) {
+    .travel__card:hover {
+      transform: none;
+      box-shadow: none;
+    }
+  }
+</style>
