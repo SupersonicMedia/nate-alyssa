@@ -1,6 +1,4 @@
 ---
-const formEmbedUrl =
-  "https://docs.google.com/forms/d/e/1FAIpQLSffKVCdmfpS5GfKhtxUAK33QIBAZJcvx6esscZIML4HXfxavA/viewform?embedded=true";
 const formOpenUrl =
   "https://docs.google.com/forms/d/e/1FAIpQLSffKVCdmfpS5GfKhtxUAK33QIBAZJcvx6esscZIML4HXfxavA/viewform";
 ---
@@ -11,8 +9,8 @@ const formOpenUrl =
     <h2 class="rsvp__title script">Will you join us?</h2>
 
     <p class="rsvp__lede">
-      We can't wait to celebrate with you on <strong>August 8, 2026</strong>. Please complete
-      the form below to let us know if you'll be joining us.
+      We can't wait to celebrate with you on <strong>August 8, 2026</strong>. Please let us
+      know if you'll be joining us by completing our RSVP form.
     </p>
 
     <div class="rsvp__details" aria-label="Wedding details">
@@ -39,27 +37,15 @@ const formOpenUrl =
     </div>
 
     <div class="rsvp__cta">
-      <a class="btn" href={formOpenUrl} target="_blank" rel="noopener noreferrer">
-        Open form in new tab
+      <a class="btn btn--solid" href={formOpenUrl} target="_blank" rel="noopener noreferrer">
+        RSVP Now
         <span aria-hidden="true">↗</span>
       </a>
-      <a class="btn btn--solid" href="/wedding-alyssa-nathan.ics" download>
+      <a class="btn" href="/wedding-alyssa-nathan.ics" download>
         Add to Calendar
         <span aria-hidden="true">↓</span>
       </a>
     </div>
-  </div>
-
-  <div class="container-narrow rsvp__form reveal" aria-label="RSVP form">
-    <iframe
-      src={formEmbedUrl}
-      title="RSVP Form for Alyssa & Nathan's Wedding"
-      loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade"
-      scrolling="no"
-    >
-      Loading form…
-    </iframe>
   </div>
 </section>
 
@@ -130,46 +116,4 @@ const formOpenUrl =
     .rsvp__cta { width: 100%; }
     .rsvp__cta .btn { flex: 1 1 0; min-width: 0; }
   }
-
-  /* The embedded Google Form, full-height, no inner scroll.
-     Google Forms iframes don't post their height to the parent, so we use a
-     generous fixed value and rely on `scrolling="no"`. The script below grows
-     the iframe to whatever it actually needs whenever it can be measured. */
-  .rsvp__form {
-    margin-top: clamp(2rem, 5vw, 3.5rem);
-  }
-  .rsvp__form iframe {
-    display: block;
-    width: 100%;
-    border: 0;
-    /* Initial height covers a typical RSVP form; the JS below adjusts as needed. */
-    height: 2400px;
-    background: white;
-  }
 </style>
-
-<script>
-  // Try to fit the Google Form iframe to its actual content. Cross-origin
-  // forms block contentDocument access, so this is best-effort: it works on
-  // engines that allow same-origin reads (rare for Google) and otherwise the
-  // generous CSS height keeps everything visible without an inner scrollbar.
-  const iframe = document.querySelector<HTMLIFrameElement>(".rsvp__form iframe");
-  if (iframe) {
-    const fit = () => {
-      try {
-        const doc = iframe.contentDocument;
-        if (doc?.body) {
-          const h = Math.max(
-            doc.body.scrollHeight,
-            doc.documentElement.scrollHeight,
-          );
-          if (h > 100) iframe.style.height = `${h + 32}px`;
-        }
-      } catch {
-        /* cross-origin — ignore */
-      }
-    };
-    iframe.addEventListener("load", fit);
-    setTimeout(fit, 1500);
-  }
-</script>
